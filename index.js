@@ -7,6 +7,8 @@ app.listen(3000, () => {
 // console.log('Hello, World!');
 
 app.set('view engine', 'ejs');
+app.use(express.json()); //midedleware to parse JSON body
+app.use(express.urlencoded({ extended: false })); //midedleware to parse URL-encoded body
 
 app.get('/', (req, res) => {
     res.send('Hello, World Anil !');
@@ -71,4 +73,12 @@ app.get('/header', (req, res) => {
 res.set('X-Custom-Header', 'MyValue');
 console.log(res.get('X-Custom-Header')); // MyValue
 res.send('Header set!');
+});
+
+app.post('/user', (req, res) => {
+res.send(req.body);
+});
+
+app.post('/user-form', (req, res) => {
+res.send(req.body);
 });
