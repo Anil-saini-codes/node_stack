@@ -6,6 +6,8 @@ app.listen(3000, () => {
 });
 // console.log('Hello, World!');
 
+app.set('view engine', 'ejs');
+
 app.get('/', (req, res) => {
     res.send('Hello, World Anil !');
 });
@@ -28,4 +30,45 @@ app.get('/user/:userid-:bookid', (req, res) => {
 
 app.get('/search', (req, res) => {
     res.send(req.query);
+});
+
+app.get('/contact', (req, res) => {
+    res.redirect('/about');
+});
+
+app.get('/data', (req, res) => {
+   res.json({ name: 'Anil', age: 30, city: 'New York' });
+});
+
+app.get('/render', (req, res) => {
+    res.render('user');
+});
+
+app.get('/download', (req, res) => {
+   res.download('./files/file-sample.pdf' , 'sample.pdf');
+});
+
+app.get('/savefile', (req, res) => {
+   res.sendFile(__dirname + '/files/file-sample.pdf');
+});
+
+app.get('/end', (req, res) => {
+res.write('This is the first part of the response. ');
+   res.end();
+});
+
+app.get('/error', (req, res) => {
+res.sendStatus(500);
+});
+
+app.get('/check', (req, res) => {
+console.log(res.headersSent); // false
+res.sendStatus(500);
+console.log(res.headersSent); // true
+});
+
+app.get('/header', (req, res) => {
+res.set('X-Custom-Header', 'MyValue');
+console.log(res.get('X-Custom-Header')); // MyValue
+res.send('Header set!');
 });
